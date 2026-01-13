@@ -1,0 +1,6 @@
+from scraper_ragnarok.abstract.scrapers import Scrapers
+
+
+class Extractor(Scrapers):
+    def fetch_page(): ...
+    def extract_item_values(): ...
