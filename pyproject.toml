@@ -10,6 +10,9 @@ requires-python = ">=3.11,<4.0"
 dependencies = [
     "requests (>=2.32.5,<3.0.0)",
     "beautifulsoup4 (>=4.14.3,<5.0.0)",
+    "discord (>=2.3.2,<3.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)",
+    "pydantic-settings (>=2.12.0,<3.0.0)",
 ]
 
 [build-system]
@@ -42,7 +45,4 @@ addopts = '-p no:warnings'
 lint = 'ruff check'
 pre_format = 'ruff check --fix'
 format = 'ruff format'
-run = 'fastapi dev fast_zero/app.py'
 pre_test = 'task lint'
-test = 'pytest -s -x --cov=fast_zero -vv'
-post_test = 'coverage html'
