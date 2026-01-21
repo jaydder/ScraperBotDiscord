@@ -6,6 +6,9 @@ from bot.commands.help.help_factory import HelpFactory
 from discord.ext import commands
 from model.settings import Settings
 
+from scraper_ragnarok.bot.commands.item.item_command import ItemCommand
+from scraper_ragnarok.bot.commands.item.item_factory import ItemFactory
+
 settings = Settings()
 
 
@@ -16,12 +19,13 @@ class RagnarokBot(commands.Bot):
 
     async def setup_hook(self) -> None:
         await self.add_cog(HelpCommand(self, HelpFactory()))
+        await self.add_cog(ItemCommand(self, ItemFactory()))
 
-        # 🔹 Sync (DEV: use guild)
-        synced = await self.tree.sync(
-            guild=discord.Object(id=settings.GUILD_ID)
-        )
+        synced = await self.tree.sync()
         print(f'✓ {len(synced)} comando(s) sincronizado(s)')
+
+        for cmd in self.tree.get_commands():
+            print(f'- {cmd.name}')
 
 
 def main() -> None:

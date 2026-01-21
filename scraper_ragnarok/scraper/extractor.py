@@ -76,9 +76,6 @@ class Extractor(Scrapers):
                     ):
                         continue
                     items.append(item)
-        else:
-            return soup
-
         return items
 
     @staticmethod
@@ -98,11 +95,3 @@ class Extractor(Scrapers):
             'type_currency': type_currency,
             'quantity': qtd,
         }
-
-
-if __name__ == '__main__':
-    scraper = Extractor(6635)
-    html = scraper.fetch_page()
-    if html:
-        items = scraper.extract_item_values(html, max_value=1000)
-        print(items)
