@@ -1,10 +1,10 @@
-from bot.commands.help.help_command import build_help_command
 from bot.services.help_service import HelpService
 from bot.views.embeds.help_embed import HelpEmbedBuilder
+from discord.ext import commands
 
 
-def create_command():
-    embed_builder = HelpEmbedBuilder()
-    service = HelpService(embed_builder)
-
-    return build_help_command(service)
+class HelpFactory(commands.Bot):
+    def __new__(cls):
+        embed_builder = HelpEmbedBuilder()
+        help_service = HelpService(embed_builder)
+        return help_service

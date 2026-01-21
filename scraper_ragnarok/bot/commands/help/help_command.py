@@ -1,9 +1,11 @@
 import discord
 from discord import app_commands
+from discord.ext import commands
 
 
-class HelpCommand:
-    def __init__(self, help_service):
+class HelpCommand(commands.Cog):
+    def __init__(self, bot, help_service):
+        self.bot = bot
         self.help_service = help_service
 
     @app_commands.command(
