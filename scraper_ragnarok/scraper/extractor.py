@@ -12,7 +12,10 @@ class Extractor(Scrapers):
         super().__init__(item_id)
         self.url = f'https://site.heroragnarok.com/?module=item&action=view&id={item_id}'
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Accept': 'text/html,application/xhtml+xml',
+            'Accept-Language': 'pt-BR,pt;q=0.9',
+            'Connection': 'keep-alive',
         }
 
     @override
@@ -54,7 +57,6 @@ class Extractor(Scrapers):
 
         if table:
             rows = table.find_all('tr')[1:]
-            print(rows)
             for row in rows:
                 cols = row.find_all('td')
                 if len(cols) >= COLUMNS:
@@ -95,3 +97,10 @@ class Extractor(Scrapers):
             'type_currency': type_currency,
             'quantity': qtd,
         }
+
+
+# if __name__ == '__main__':
+#     scraper = Extractor(6635)
+#     html = scraper.fetch_page()
+#     items = scraper.extract_item_values(html, 1000, 'ROPS')
+#     print(items)
