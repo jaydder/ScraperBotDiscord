@@ -12,11 +12,18 @@ class ItemCommand(commands.Cog):
         name='item', description='Busca informações de um item no Ragnarok'
     )
     async def item_search(
-        self, interaction: discord.Interaction, item_id: int
+        self,
+        interaction: discord.Interaction,
+        item_id: int,
+        max_value: int,
+        currency: str,
     ):
         try:
-            embeds = self.item_service.get_item_embed(item_id)
-            await interaction.followup.send(embeds=embeds)
+            embeds = self.item_service.get_item_embed(
+                item_id, max_value, currency
+            )
+
+            await interaction.response.send_message(embeds=embeds)
 
         except ValueError as e:
             await interaction.followup.send(f'❌ {str(e)}')

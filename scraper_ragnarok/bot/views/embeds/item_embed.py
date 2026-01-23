@@ -19,11 +19,11 @@ class ItemEmbedBuilder:
 
         for item in items:
             entry = (
-                f'**{item["loja"]}**\n'
-                f'  • Refino: {item["refino"]}\n'
-                f'  • Quantidade (ROP): {item["quantidade_rops"]}\n'
-                f'  • Tipo: {item["type_value"]}\n'
-                f'  • Qtd: {item["qtd"]}\n'
+                f'**{item["store"]}**\n'
+                f'  • Refino: {item["refine"]}\n'
+                f'  • Quantidade (ROP): {item["item_value"]}\n'
+                f'  • Tipo: {item["type_currency"]}\n'
+                f'  • Qtd: {item["quantity"]}\n'
                 f'  ─────────────────\n'
             )
 
