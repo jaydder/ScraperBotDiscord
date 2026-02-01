@@ -3,11 +3,17 @@ from bot.commands.help.help_command import (
     HelpCommand,
 )
 from bot.commands.help.help_factory import HelpFactory
+from bot.commands.item.item_command import ItemCommand
+from bot.commands.item.item_factory import ItemFactory
+from bot.commands.stalker.stalker_command import (
+    StalkerCommands,
+)
+from bot.commands.stalker.stalker_factory import (
+    StalkerFactory,
+)
+from bot.storage.user_store import UserStore
 from discord.ext import commands
 from model.settings import Settings
-
-from scraper_ragnarok.bot.commands.item.item_command import ItemCommand
-from scraper_ragnarok.bot.commands.item.item_factory import ItemFactory
 
 settings = Settings()
 
@@ -18,8 +24,12 @@ class RagnarokBot(commands.Bot):
         super().__init__(command_prefix='!', intents=intents)
 
     async def setup_hook(self) -> None:
+
         await self.add_cog(HelpCommand(self, HelpFactory()))
         await self.add_cog(ItemCommand(self, ItemFactory()))
+        await self.add_cog(
+            StalkerCommands(self, StalkerFactory(), UserStore())
+        )
 
         synced = await self.tree.sync()
         print(f'✓ {len(synced)} comando(s) sincronizado(s)')

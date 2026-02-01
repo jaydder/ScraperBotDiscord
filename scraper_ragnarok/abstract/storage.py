@@ -4,16 +4,11 @@ from typing import Any
 from scraper_ragnarok.handlers.exceptions import MethodNotImplemented
 
 
-class Scrapers(metaclass=ABCMeta):
-    def __init__(self, item_id):
-        self.item_id = item_id
-        self.headers = {}
-        self.url = None
-
+class Storage(metaclass=ABCMeta):
     @abstractmethod
-    def fetch_page(self) -> Any:
+    def add(self) -> Any:
         raise MethodNotImplemented()
 
     @abstractmethod
-    def extract_item_values(self) -> Any:
+    def remove(self) -> Any:
         raise MethodNotImplemented()
