@@ -1,4 +1,3 @@
-import discord
 from scraper.extractor import Extractor
 
 
