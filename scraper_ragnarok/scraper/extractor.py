@@ -10,9 +10,15 @@ from scraper_ragnarok.abstract.scrapers import Scrapers
 class Extractor(Scrapers):
     def __init__(self, item_id):
         super().__init__(item_id)
-        self.url = f'https://site.heroragnarok.com/?module=item&action=view&id={item_id}'
+        self.url = (
+            'https://site.heroragnarok.com/'
+            + '?module=item'
+            + '&action=view'
+            + f'&id={item_id}'
+        )
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+            + 'AppleWebKit/537.36',
             'Accept': 'text/html,application/xhtml+xml',
             'Accept-Language': 'pt-BR,pt;q=0.9',
             'Connection': 'keep-alive',
@@ -21,7 +27,8 @@ class Extractor(Scrapers):
     @override
     def fetch_page(self) -> str | None:
         """
-        monta um request com header personalizado e envia para a URL setada no constructor da class
+        monta um request com header personalizado e envia para a URL setada no
+        constructor da class
         Returns:
             str: HTML da pagina requesitada
             None: Erro ao acessar a pagina
@@ -40,11 +47,13 @@ class Extractor(Scrapers):
         self, html: str, max_value: int = 0, currency: str = ''
     ):
         """
-        Extrai os itens da página HTML, aplicando filtros opcionais de valor máximo e tipo de moeda.
+        Extrai os itens da página HTML, aplicando filtros opcionais de valor
+        máximo e tipo de moeda.
         Args:
             html (str): HTML da página.
             max_value (int, opcional): Valor máximo do item para filtrar.
-            currency (str, opcional): Tipo de moeda para filtrar (RMT, ROPS, Zeny).
+            currency (str, opcional): Tipo de moeda para filtrar
+            (RMT, ROPS, Zeny).
         Returns:
             list[dict]: Lista de itens filtrados.
         """
