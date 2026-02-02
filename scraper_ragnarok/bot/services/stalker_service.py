@@ -5,7 +5,7 @@ class StalkerService:
     def __init__(self, embed_builder):
         self.embed_builder = embed_builder
 
-    async def send_market_update(
+    async def get_item_embed(
         self, user_id: int, item_id: int, max_value: int, currency: str
     ):
         try:

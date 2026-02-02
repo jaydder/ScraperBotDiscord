@@ -37,7 +37,7 @@ class StalkerCommands(commands.Cog):
             currency,
         )
         try:
-            embeds = await self.service.send_market_update(
+            embeds = await self.service.get_item_embed(
                 interaction.user.id, item_id, max_value, currency
             )
             await interaction.followup.send(
@@ -83,7 +83,7 @@ class StalkerCommands(commands.Cog):
             self.counters[user_id] = 0
 
         for user_id, _ in users_to_update:
-            embed = await self.service.send_market_update(
+            embed = await self.service.get_item_embed(
                 user_id,
                 data['item_id'],
                 data['max_value'],
