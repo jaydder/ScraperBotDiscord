@@ -18,12 +18,20 @@ class ItemCommand(commands.Cog):
         max_value: int,
         currency: str,
     ):
+
+        await interaction.response.defer(ephemeral=True)
         try:
             embeds = self.item_service.get_item_embed(
                 item_id, max_value, currency
             )
 
-            await interaction.response.send_message(embeds=embeds)
+            user = await self.bot.fetch_user(interaction.user.id)
+            await user.send(embed=embeds)
+
+            await interaction.followup.send(
+                f'✅ Item `{item_id}` achado',
+                ephemeral=True,
+            )
 
         except ValueError as e:
             await interaction.followup.send(f'❌ {str(e)}')
