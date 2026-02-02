@@ -9,9 +9,9 @@ class HelpCommand(commands.Cog):
         self.help_service = help_service
 
     @app_commands.command(
-        name='help_ragnarok',
+        name='help',
         description='Mostra informações sobre os comandos disponíveis',
     )
-    async def help_ragnarok(self, interaction: discord.Interaction):
+    async def help(self, interaction: discord.Interaction):
         embed = self.help_service.get_help_embed()
         await interaction.response.send_message(embed=embed)
