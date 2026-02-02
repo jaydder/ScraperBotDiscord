@@ -1,5 +1,5 @@
 [project]
-name = "scraper_ragnarok"
+name = "scraper_bot_discord"
 version = "0.1.0"
 description = ""
 authors = [{ name = "jaydder", email = "jaydderfavoravel@gmail.com" }]

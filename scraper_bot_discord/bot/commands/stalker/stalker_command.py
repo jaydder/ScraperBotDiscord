@@ -1,9 +1,8 @@
 import discord
 from bot.services.stalker_service import StalkerService
+from bot.storage.user_store import UserStore
 from discord import app_commands
 from discord.ext import commands, tasks
-
-from scraper_ragnarok.bot.storage.user_store import UserStore
 
 
 class StalkerCommands(commands.Cog):

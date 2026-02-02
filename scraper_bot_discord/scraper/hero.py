@@ -4,7 +4,7 @@ from typing import Any, override
 import requests
 from bs4 import BeautifulSoup
 
-from scraper_ragnarok.abstract.scrapers import Scrapers
+from scraper_bot_discord.abstract.scrapers import Scrapers
 
 
 class Hero(Scrapers):

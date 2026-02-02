@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from typing import Any
 
-from scraper_ragnarok.handlers.exceptions import MethodNotImplemented
+from scraper_bot_discord.handlers.exceptions import MethodNotImplemented
 
 
 class Scrapers(metaclass=ABCMeta):

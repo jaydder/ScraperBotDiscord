@@ -1,4 +1,4 @@
-# 🤖 BotDiscordHero - Ragnarok Scraper Bot
+# 🤖 ScraperBotDiscord - Ragnarok Scraper Bot
 
 A powerful Discord bot that scrapes and provides real-time Ragnarok Online information directly in Discord. Monitor item prices, track price changes, and search item details with interactive slash commands.
 
@@ -33,7 +33,7 @@ A powerful Discord bot that scrapes and provides real-time Ragnarok Online infor
 
 ```bash
 git clone <repository-url>
-cd BotDiscordHero
+cd ScraperBotDiscord
 ```
 
 ### 2. Install Dependencies
@@ -88,12 +88,12 @@ Copy the generated URL and open it in your browser to add the bot to your server
 
 Using Poetry:
 ```bash
-poetry run python scraper_ragnarok/app.py
+poetry run python scraper_bot_discord/app.py
 ```
 
 Or directly:
 ```bash
-python scraper_ragnarok/app.py
+python scraper_bot_discord/app.py
 ```
 
 ### Option 2: Using Tasks
@@ -180,8 +180,8 @@ This will monitor item 547 and send price updates every 120 minutes.
 ## 📁 Project Structure
 
 ```
-BotDiscordHero/
-├── scraper_ragnarok/
+ScraperBotDiscord/
+├── scraper_bot_discord/
 │   ├── app.py                          # Main bot entry point
 │   ├── abstract/
 │   │   ├── scrapers.py                 # Abstract scraper interfaces
