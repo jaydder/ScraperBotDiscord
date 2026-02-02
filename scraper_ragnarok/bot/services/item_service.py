@@ -1,4 +1,4 @@
-from scraper.extractor import Extractor
+from scraper.hero import Hero
 
 
 class ItemService:
@@ -6,7 +6,7 @@ class ItemService:
         self.embed_builder = embed_builder
 
     def get_item_embed(self, item_id, max_value, currency):
-        scraper = Extractor(item_id)
+        scraper = Hero(item_id)
         html = scraper.fetch_page()
 
         if not html:

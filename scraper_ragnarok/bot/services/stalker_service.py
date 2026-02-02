@@ -1,4 +1,4 @@
-from scraper.extractor import Extractor
+from scraper.hero import Hero
 
 
 class StalkerService:
@@ -9,7 +9,7 @@ class StalkerService:
         self, user_id: int, item_id: int, max_value: int, currency: str
     ):
         try:
-            scraper = Extractor(item_id)
+            scraper = Hero(item_id)
             html = scraper.fetch_page()
 
             if not html:

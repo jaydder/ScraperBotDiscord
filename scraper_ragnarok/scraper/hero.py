@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from scraper_ragnarok.abstract.scrapers import Scrapers
 
 
-class Extractor(Scrapers):
+class Hero(Scrapers):
     def __init__(self, item_id):
         super().__init__(item_id)
         self.url = (
