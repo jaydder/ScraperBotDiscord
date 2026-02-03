@@ -11,8 +11,25 @@ class HelpEmbedBuilder:
         )
 
         embed.add_field(
-            name='/help_ragnarok',
+            name='/help',
             value='Mostra esta mensagem de ajuda',
+            inline=False,
+        )
+
+        embed.add_field(
+            name='/item <item_id> [max_value] [currency]',
+            value='Procura um item especifico no market',
+            inline=False,
+        )
+
+        embed.add_field(
+            name='/stalker <item_id> [max_value] [currency] [interval]',
+            value='Monitora um item no market e manda a resposta periodicamente via DM',
+            inline=False,
+        )
+        embed.add_field(
+            name='/stalkerless',
+            value='Desliga o monitoramento',
             inline=False,
         )
 
