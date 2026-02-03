@@ -7,4 +7,3 @@ class Settings(BaseSettings):
     )
     DISCORD_TOKEN: str
     OWNER_ID: int
-    GUILD_ID: int
