@@ -1,4 +1,4 @@
-from scraper_ragnarok.abstract.storage import Storage
+from scraper_bot_discord.abstract.storage import Storage
 
 
 class UserStore(Storage):
