@@ -1,6 +1,6 @@
 import discord
 
-from scraper_ragnarok.bot.views.templates.market import EmbedMarket
+from scraper_bot_discord.bot.views.templates.market import EmbedMarket
 
 
 class StalkerEmbedBuilder:
