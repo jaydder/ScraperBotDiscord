@@ -1,5 +1,5 @@
 import re
-from typing import Any, override
+from typing import Any
 
 import requests
 from bs4 import BeautifulSoup
@@ -24,8 +24,7 @@ class Hero(Scrapers):
             'Connection': 'keep-alive',
         }
 
-    @override
-    def fetch_page(self) -> str | None:
+    def fetch_page(self):
         """
         monta um request com header personalizado e envia para a URL setada no
         constructor da class
@@ -42,7 +41,6 @@ class Hero(Scrapers):
             print(f'Erro ao acessar a página: {e}')
             return None
 
-    @override
     def extract_item_values(
         self, html: str, max_value: int = 0, currency: str = ''
     ):
