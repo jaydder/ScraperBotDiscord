@@ -14,5 +14,21 @@ class Storage(metaclass=ABCMeta):
         raise MethodNotImplemented()
 
     @abstractmethod
+    def unschedule(self, value: str) -> Any:
+        raise MethodNotImplemented()
+
+    @abstractmethod
     def get_all(self, key: str) -> Any:
         raise MethodNotImplemented()
+
+    @abstractmethod
+    def schedule(self, key: str, timer: int) -> Any:
+        raise MethodNotImplemented()
+
+    @abstractmethod
+    def get_observable_user(self, key: str) -> Any:
+        raise MethodNotImplemented()
+
+    @abstractmethod
+    def get_due(self) -> Any:
+        raise MethodNotImplemented

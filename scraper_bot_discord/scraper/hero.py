@@ -66,7 +66,7 @@ class Hero(Scrapers):
             rows = table.find_all('tr')[1:]
             for row in rows:
                 cols = row.find_all('td')
-                if len(cols) >= COLUMNS:
+                if int(len(cols)) >= int(COLUMNS):
                     item = self.handler_columns_to_dict(cols)
                     currencies = ['RMT', 'ROPS', 'Zeny']
                     if (
@@ -81,7 +81,7 @@ class Hero(Scrapers):
                     if (
                         max_value is not None
                         and item_value_int is not None
-                        and item_value_int > max_value
+                        and int(item_value_int) > int(max_value)
                     ):
                         continue
                     items.append(item)

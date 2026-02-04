@@ -12,7 +12,6 @@ class StalkerCommands(commands.Cog):
     def __init__(
         self, bot, stalker_service: StalkerService, storage: UserStore
     ):
-        self.schema = None
         self.bot = bot
         self.service = stalker_service
         self.storage = storage
@@ -29,18 +28,20 @@ class StalkerCommands(commands.Cog):
     ):
         await interaction.response.defer(ephemeral=True)
 
-        if not self.loop.is_running():
-            self.loop.start()
-
-        self.schema = MonitorSchema(
+        schema = MonitorSchema(
             interaction.user.id,
             item_id,
-            interval,
+            float(interval),
             max_value,
             currency,
         )
 
-        self.storage.add(self.schema)
+        self.storage.add(schema)
+        self.storage.schedule(
+            schema.user_id,
+            schema.item_id,
+            schema.interval,
+        )
         try:
             item_schema = ItemSchema(
                 interaction.user.id,
@@ -55,7 +56,7 @@ class StalkerCommands(commands.Cog):
                 ephemeral=True,
             )
 
-            user = await self.bot.fetch_user(self.schema.user_id)
+            user = await self.bot.fetch_user(schema.user_id)
             await user.send(embed=embeds)
 
         except Exception as e:
@@ -65,42 +66,45 @@ class StalkerCommands(commands.Cog):
             print(e)
 
     @app_commands.command(name='stalkerless')
-    async def stalkerless(self, interaction: discord.Interaction):
-        self.storage.remove(self.schema.user_id, self.schema.item_id)
-        self.counters.pop(self.schema.user_id, None)
+    async def stalkerless(
+        self, interaction: discord.Interaction, item_id: int
+    ):
+        self.storage.remove(interaction.user.id, item_id)
+        self.storage.unschedule(interaction.user.id, item_id)
 
         await interaction.response.send_message(
-            '🛑 Monitoramento encerrado.',
+            '🛑 Monitoramento encerrado.', ephemeral=True
         )
-        self.loop.cancel()
 
-    @tasks.loop(minutes=1)
+    @tasks.loop(seconds=10)
     async def loop(self):
-        users_to_update = []
-        data = self.storage.get_all(self.schema.user_id, self.schema.item_id)
+        entries = self.storage.get_due()
 
-        if self.schema.user_id not in self.counters:
-            self.counters[self.schema.user_id] = 0
+        for entry in entries:
+            user_id, item_id = map(int, entry.split(':'))
 
-        self.counters[self.schema.user_id] += 1
+            data = self.storage.get_all(user_id, item_id)
+            if not data:
+                continue
 
-        if self.counters[self.schema.user_id] >= int(data['interval']):
-            users_to_update.append((self.schema.user_id, data['item_id']))
-            self.counters[self.schema.user_id] = 0
-
-        for user_id, _ in users_to_update:
-            new_schema = ItemSchema(
-                self.schema.user_id,
+            schema = ItemSchema(
+                user_id,
                 data['item_id'],
                 data['max_value'],
                 data['currency'],
             )
-            embed = await self.service.get_item_embed(new_schema)
+
+            embed = await self.service.get_item_embed(schema)
             if not embed:
                 continue
 
-            user = await self.bot.fetch_user(self.schema.user_id)
-            await user.send(embed=embed)
+            try:
+                user = await self.bot.fetch_user(user_id)
+                await user.send(embed=embed)
+            except Exception:
+                continue
+
+            self.storage.schedule(user_id, item_id, float(data['interval']))
 
     @loop.before_loop
     async def before_loop(self):

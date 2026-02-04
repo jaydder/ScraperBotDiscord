@@ -13,5 +13,17 @@ class RedisStorage(Storage):
     def remove(self, key: str):
         self.redis.delete(key)
 
+    def unschedule(self, value: str):
+        self.redis.zrem('stalker:queue', value)
+
     def get_all(self, key: str):
         return self.redis.hgetall(key)
+
+    def schedule(self, key: str, timer: str):
+        self.redis.zadd('stalker:queue', {key: timer})
+
+    def get_observable_user(self, key: str):
+        return self.redis.keys(key)
+
+    def get_due(self, time):
+        return self.redis.zrangebyscore('stalker:queue', 0, time)

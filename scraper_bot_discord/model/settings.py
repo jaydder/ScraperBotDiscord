@@ -7,3 +7,6 @@ class Settings(BaseSettings):
     )
     DISCORD_TOKEN: str
     OWNER_ID: int
+    PORT_DATABASE: int
+    URL_DATABASE: str
+    DEBUG: int
