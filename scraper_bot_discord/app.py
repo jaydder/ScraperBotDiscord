@@ -11,7 +11,7 @@ from bot.commands.stalker.stalker_command import (
 from bot.commands.stalker.stalker_factory import (
     StalkerFactory,
 )
-from bot.storage.user_store import UserStore
+from bot.storage.store_factory import StoreFactory
 from discord.ext import commands
 from model.settings import Settings
 
@@ -27,8 +27,9 @@ class RagnarokBot(commands.Bot):
 
         await self.add_cog(HelpCommand(self, HelpFactory()))
         await self.add_cog(ItemCommand(self, ItemFactory()))
+
         await self.add_cog(
-            StalkerCommands(self, StalkerFactory(), UserStore())
+            StalkerCommands(self, StalkerFactory(), StoreFactory())
         )
 
         synced = await self.tree.sync()
